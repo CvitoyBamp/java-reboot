@@ -3,7 +3,7 @@ package ru.sberbank.edu.impl;
 import ru.sberbank.edu.CommonDivisor;
 
 /**
- *
+ * Class have method for getting devisior by Euclid's algorithm
  * Implementation of {@link CommonDivisor}
  */
 public class GCD implements CommonDivisor {
