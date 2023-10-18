@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ru.sberbank.edu.impl.FileStorage;
 import ru.sberbank.edu.impl.StatisticImpl;
 
 import java.io.BufferedWriter;
@@ -18,7 +19,9 @@ import java.util.ArrayList;
 public class StaticImplTest {
     StatisticImpl staticImpl;
     private static String inputFileName;
-    private static String outputFileName;
+    private static String output;
+
+    private FileStorage fileStorage = new FileStorage();
 
     /**
      * Create test file and initialize variables once.
@@ -27,7 +30,7 @@ public class StaticImplTest {
     public static void generateTestFile() {
 
         inputFileName = "testInput.txt";
-        outputFileName = "testOutput.txt";
+        output = "testOutput.txt";
 
         try (BufferedWriter writter = new BufferedWriter(new FileWriter(inputFileName))) {
                 writter.write("Это тестовый файл\n" + "Вот это самая длинная строчка!\n");
@@ -41,7 +44,7 @@ public class StaticImplTest {
      */
     @Before
     public void init() {
-        staticImpl = new StatisticImpl(inputFileName, outputFileName);
+        staticImpl = new StatisticImpl(inputFileName, output);
     }
 
     /**
@@ -77,8 +80,8 @@ public class StaticImplTest {
      */
     @Test
     public void possibilitySaveToFileTest() {
-        staticImpl.save(2, 6, "Вот это самая длинная строчка!");
-        Assertions.assertThat(new File(outputFileName)).exists();
+        staticImpl.save(2, 6, "Вот это самая длинная строчка!", fileStorage);
+        Assertions.assertThat(new File(output)).exists();
     }
 
     /**
@@ -86,9 +89,9 @@ public class StaticImplTest {
      * @result content should be equal to func results.
      */
     @Test
-    public void outputFileContentTest() {
-        staticImpl.save(2, 6, "Вот это самая длинная строчка!");
-        ArrayList<String> data = staticImpl.readFile(outputFileName);
+    public void outputContentTest() {
+        staticImpl.save(2, 6, "Вот это самая длинная строчка!", fileStorage);
+        ArrayList<String> data = staticImpl.readFile(output);
         Assertions.assertThat(data.get(0)).isEqualTo(String.valueOf(staticImpl.getLineCount()));
         Assertions.assertThat(data.get(1)).isEqualTo(String.valueOf(staticImpl.getSpaceCount()));
         Assertions.assertThat(data.get(2)).isEqualTo(staticImpl.getLongestLine());

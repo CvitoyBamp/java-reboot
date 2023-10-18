@@ -1,6 +1,7 @@
 package ru.sberbank.edu.impl;
 
 import ru.sberbank.edu.interfaces.Statistic;
+import ru.sberbank.edu.interfaces.Storage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,16 +13,25 @@ import java.util.Comparator;
  */
 public class StatisticImpl implements Statistic {
 
+    /**
+     * @value имя файла с начальными данными
+     */
     private String inputFile;
-    private String outputFile;
+    /**
+     * @value имя файла или jdbc строка для БД
+     */
+    private String output;
+    /**
+     * @value набор данных после прочтения
+     */
     private final ArrayList<String> data;
 
     /**
      * Constructor for StatisticImpl class
      */
-    public StatisticImpl(String inputFile, String outputFile) {
+    public StatisticImpl(String inputFile, String output) {
         this.inputFile = inputFile;
-        this.outputFile = outputFile;
+        this.output = output;
         data = readFile(inputFile);
     }
 
@@ -29,8 +39,8 @@ public class StatisticImpl implements Statistic {
         this.inputFile = inputFile;
     }
 
-    public void setOutputFile(String outputFile) {
-        this.outputFile = outputFile;
+    public void setOutput(String output) {
+        this.output = output;
     }
 
     /**
@@ -91,15 +101,8 @@ public class StatisticImpl implements Statistic {
      * @param line value from getLongestLine
      */
     @Override
-    public void save(int lineCount, int spaceCount, String line) {
+    public void save(int lineCount, int spaceCount, String line, Storage storage) {
         String[] outputData = {String.valueOf(lineCount), String.valueOf(spaceCount), line};
-        try (BufferedWriter writter = new BufferedWriter(new FileWriter(outputFile))) {
-            for (String value : outputData) {
-                writter.write(value + "\n");
-            }
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        storage.write(outputData, output);
     }
 }

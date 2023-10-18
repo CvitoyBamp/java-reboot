@@ -8,7 +8,7 @@ public interface Statistic {
     int getLineCount();
     int getSpaceCount();
     String getLongestLine();
-    void save(int lineCount, int spaceCount, String line);
-    ArrayList<String> readFile(String inputFilePath) throws IOException;
+    void save(int lineCount, int spaceCount, String line, Storage storage);
+    ArrayList<String> readFile(String inputFilePath);
 
 }
