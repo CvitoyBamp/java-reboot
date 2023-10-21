@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit test for StaticImpl class
@@ -21,7 +22,7 @@ public class StaticImplTest {
     private static String inputFileName;
     private static String output;
 
-    private FileStorage fileStorage = new FileStorage();
+    private final FileStorage fileStorage = new FileStorage();
 
     /**
      * Create test file and initialize variables once.
@@ -91,7 +92,7 @@ public class StaticImplTest {
     @Test
     public void outputContentTest() {
         staticImpl.save(2, 6, "Вот это самая длинная строчка!", fileStorage);
-        ArrayList<String> data = staticImpl.readFile(output);
+        List data = staticImpl.readFile(output);
         Assertions.assertThat(data.get(0)).isEqualTo(String.valueOf(staticImpl.getLineCount()));
         Assertions.assertThat(data.get(1)).isEqualTo(String.valueOf(staticImpl.getSpaceCount()));
         Assertions.assertThat(data.get(2)).isEqualTo(staticImpl.getLongestLine());

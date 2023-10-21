@@ -1,7 +1,6 @@
 package ru.sberbank.edu.interfaces;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Statistic {
 
@@ -9,6 +8,6 @@ public interface Statistic {
     int getSpaceCount();
     String getLongestLine();
     void save(int lineCount, int spaceCount, String line, Storage storage);
-    ArrayList<String> readFile(String inputFilePath);
+    List readFile(String inputFilePath);
 
 }

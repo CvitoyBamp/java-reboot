@@ -6,6 +6,7 @@ import ru.sberbank.edu.interfaces.Storage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Class for reading and saving files
@@ -24,7 +25,7 @@ public class StatisticImpl implements Statistic {
     /**
      * @value набор данных после прочтения
      */
-    private final ArrayList<String> data;
+    private final List<String> data;
 
     /**
      * Constructor for StatisticImpl class
@@ -49,13 +50,12 @@ public class StatisticImpl implements Statistic {
      * @return ArrayList of lines
      */
     @Override
-    public ArrayList<String> readFile(String inputFile) {
+    public List readFile(String inputFile) {
 
         String strLine;
-        ArrayList<String> ans = new ArrayList<>();
+        List ans = new ArrayList<>();
 
-        try {
-            BufferedReader br = new BufferedReader(new java.io.FileReader(inputFile));
+        try (BufferedReader br = new BufferedReader(new java.io.FileReader(inputFile))) {
             while ((strLine = br.readLine()) != null) {
                 ans.add(strLine);
             }
