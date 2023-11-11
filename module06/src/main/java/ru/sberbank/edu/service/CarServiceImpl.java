@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class CarServiceImpl implements CarService {
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     public CarServiceImpl(CarRepository carRepository) {
         this.carRepository = carRepository;
@@ -24,6 +24,11 @@ public class CarServiceImpl implements CarService {
         Optional<Car> optCar = carRepository.findById(id);
         Car car = optCar.orElseThrow();
         updateCarModel(car, newModel);
+    }
+
+    @Override
+    public void deleteCar(String id) throws SQLException {
+        carRepository.deleteById(id);
     }
 
     private void updateCarModel(Car car, String newModel) {
