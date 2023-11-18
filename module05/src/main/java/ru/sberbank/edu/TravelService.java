@@ -1,7 +1,10 @@
 package ru.sberbank.edu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Travel Service.
@@ -13,29 +16,39 @@ public class TravelService {
 
     /**
      * Append city info.
-     *
      * @param cityInfo - city info
      * @throws IllegalArgumentException if city already exists
      */
+
     public void add(CityInfo cityInfo) {
-        // do something
+        cities.stream().filter(cityInfo::equals).findAny().ifPresentOrElse(
+                (ci) -> {
+                    throw new IllegalArgumentException(String.format("City %s is already exist.", cityInfo.getName()));
+                },
+                () -> {
+                    cities.add(cityInfo);
+                });
     }
 
     /**
      * remove city info.
-     *
      * @param cityName - city name
      * @throws IllegalArgumentException if city doesn't exist
      */
     public void remove(String cityName) {
-        // do something
+        cities.stream().filter(ci -> (ci.getName().equals(cityName))).findFirst().ifPresentOrElse(
+                cities::remove,
+                () -> {
+                    throw new IllegalArgumentException("City doesn't exist.");
+                }
+        );
     }
 
     /**
      * Get cities names.
      */
     public List<String> citiesNames() {
-        return null;
+        return cities.stream().map(CityInfo::getName).collect(Collectors.toList());
     }
 
     /**
@@ -47,7 +60,14 @@ public class TravelService {
      * @throws IllegalArgumentException if source or destination city doesn't exist.
      */
     public int getDistance(String srcCityName, String destCityName) {
-        return 0;
+        List<CityInfo> cis = cities.stream().filter(ci -> ci.getName().equals(srcCityName) || ci.getName().equals(destCityName)).toList();
+        if (cis.size() == 2) {
+            return calculateDistance(cis.get(0).getPosition(), cis.get(1).getPosition());
+        } else if (cis.size() == 1) {
+            return 0; // тот же город
+        } else {
+            throw new IllegalArgumentException("One of the cities doesn't exist.");
+        }
     }
 
     /**
@@ -58,6 +78,37 @@ public class TravelService {
      * @throws IllegalArgumentException if city with cityName city doesn't exist.
      */
     public List<String> getCitiesNear(String cityName, int radius) {
-        return null;
+        return cities.stream().map(CityInfo::getName)
+                .filter(cn -> !cn.equals(cityName))
+                .filter(cn -> getDistance(cn, cityName) <= radius).toList();
     }
+
+    /**
+     * Calculate the distance between two cities
+     * @param firstCity geo position of first city
+     * @param secondCity geo position of second city
+     * @return distance between two cities in meters
+     */
+    private int calculateDistance(GeoPosition firstCity, GeoPosition secondCity) {
+
+        final int EARTH_RADIUS = 6372795;
+
+        final double cosLatFirstCity = Math.cos(firstCity.getLatitude());
+        final double sinLatFirstCity = Math.sin(firstCity.getLatitude());
+        final double cosLatSecondCity = Math.cos(secondCity.getLatitude());
+        final double sinLatSecondCity = Math.sin(secondCity.getLatitude());
+        final double longDelta = secondCity.getLongitude() - firstCity.getLongitude();
+        final double cosDelta = Math.cos(longDelta);
+        final double sinDelta = Math.sin(longDelta);
+
+        final double y = Math.sqrt(Math.pow(cosLatSecondCity*sinDelta, 2) +
+                Math.pow(cosLatFirstCity*sinLatSecondCity-sinLatFirstCity*cosLatSecondCity*cosDelta, 2));
+
+        final double x = sinLatFirstCity*sinLatSecondCity + cosLatFirstCity*cosLatSecondCity*cosDelta;
+
+        final double answer = Math.atan2(y, x)*EARTH_RADIUS;
+
+        return (int) answer;
+    }
+
 }
