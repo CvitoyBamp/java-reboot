@@ -4,4 +4,17 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
+<!--    <welcome-file-list>-->
+<!--        <welcome-file>getFinance.jsp</welcome-file>-->
+<!--    </welcome-file-list>-->
+    <!-- add servlet -->
+<!--    <servlet>-->
+<!--        <servlet-name>financialServlet</servlet-name>-->
+<!--        <servlet-class>ru.sberbank.edu.FinancialServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>financialServlet</servlet-name>-->
+<!--        <url-pattern>/finance</url-pattern>-->
+<!--    </servlet-mapping>-->
 </web-app>
+
