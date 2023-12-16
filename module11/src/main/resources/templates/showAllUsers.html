@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all users</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <h3>Все пользователи:</h3>
+  <tbody>
+      <tr th:each="user: ${users}">
+          <td th:text="${user.id}" />
+          <td th:text="${user.name}" />
+          <td th:text="${user.age}" />
+          <hr/>
+      </tr>
+  </tbody>
+</body>
+</html>
