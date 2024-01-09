@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+    <h1>Добавить пользователя:</h1>
+</header>
+<section>
+    <form action="#"
+          th:action="@{/user/add}"
+          method="POST"
+          name="add">
+        <table>
+            <tr>
+                <td><label for="name">Имя пользователя</label></td>
+                <td class="input"><input id="name" type="text" required name="name" th:name="name"></td>
+            </tr>
+            <tr>
+                <td><label for="age">Возраст пользователя</label></td>
+                <td class="input"><input id="age" type="text" required name="age" th:name="age"></td>
+            </tr>
+            <tr>
+                <td><input class="calc" type=submit value="Добавить пользователя"></td>
+            </tr>
+        </table>
+    </form>
+</section>
+<div style="margin-top: 5%">
+    <a href="allUsers.html">Показать всех пользователь</a>
+    <a href="deleteUser.html">Удалить пользователя</a>
+    <a href="changeUser.html">Изменить пользователя</a>
+</div>
+</body>
+</html>
