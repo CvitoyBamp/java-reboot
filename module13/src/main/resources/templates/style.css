@@ -1,0 +1,21 @@
+header {
+    align-content: center;
+    text-align: left;
+}
+
+button {
+    background: cornflowerblue;
+}
+
+.input {
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+div {
+    margin-top: 1%;
+}
+
+input {
+    background: darkgray;
+}

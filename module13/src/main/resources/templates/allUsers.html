@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get all customUsers</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+    <h3>Показать всех пользователей</h3>
+</header>
+<section>
+    <form action="#"
+          th:action="@{/user/getAll}"
+          method="POST"
+          name="getAll">
+        <table>
+            <tr>
+                <td><input class="calc" type=submit value="Показать всех пользователей"></td>
+            </tr>
+        </table>
+    </form>
+</section>
+<div style="margin-top: 5%">
+    <a href="showAllUsers.html">Добавить пользователя</a>
+    <a href="deleteUser.html">Удалить пользователя</a>
+    <a href="changeUser.html">Изменить пользователя</a>
+</div>
+</body>
+</html>
