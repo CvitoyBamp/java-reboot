@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить пользователя в БД</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<header>
+    <h1>Изменить пользователя:</h1>
+</header>
+<section>
+    <form action="#"
+          th:action="@{/admin/change}"
+          method="POST"
+          name="delete">
+        <table>
+            <tr>
+                <td><label for="oldName">Старое имя пользователя</label></td>
+                <td class="input"><input id="oldName" type="text" required name="oldName" th:name="oldName"></td>
+            </tr>
+            <tr>
+                <td><label for="newName">Новое имя пользователя</label></td>
+                <td class="input"><input id="newName" type="text" required name="newName" th:name="newName"></td>
+            </tr>
+            <tr>
+                <td><label for="newAge">Новый возраст пользователя</label></td>
+                <td class="input"><input id="newAge" type="text" required name="newAge" th:name="newAge"></td>
+            </tr>
+            <tr>
+                <td><input class="calc" type=submit value="Изменить пользователя"></td>
+            </tr>
+        </table>
+    </form>
+</section>
+<div style="margin-top: 5%">
+    <a href="addUser.html">Добавить пользователя</a>
+    <a href="allUsers.html">Показать всех пользователь</a>
+    <a href="deleteUser.html">Удалить пользователя</a>
+</div>
+</html>

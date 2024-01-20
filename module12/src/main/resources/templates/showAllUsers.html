@@ -8,7 +8,7 @@
 <body>
   <h3>Все пользователи:</h3>
   <tbody>
-      <tr th:each="user: ${customUsers}">
+      <tr th:each="user: ${users}">
           <td th:text="${user.id}" />
           <td th:text="${user.name}" />
           <td th:text="${user.age}" />
